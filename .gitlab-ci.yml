@@ -1,0 +1,79 @@
+image: chilio/laravel-dusk-ci:php-8.1
+
+before_script:
+  - composer install
+  - cp .env.example .env
+  - sed -i 's/DB_HOST=.*/DB_HOST=mysql-test/' .env
+  - sed -i 's/DB_DATABASE=.*/DB_DATABASE=webtech/' .env
+  - sed -i 's/DB_USERNAME=.*/DB_USERNAME=root/' .env
+  - sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=secret/' .env
+  - sed -i 's>APP_URL=.*>APP_URL=http://localhost>' .env
+  - start-nginx-ci-project
+  - php artisan dusk:chrome-driver
+  - configure-laravel
+
+.general:
+  timeout: 10m
+  artifacts:
+    paths:
+      - ./storage/logs # for debugging
+      - ./tests/Browser/screenshots
+      - ./tests/Browser/console
+    expire_in: 7 days
+    when: always
+
+Task1:
+  script:
+    - php artisan dusk --filter testTask1
+  extends: .general
+
+Task2:
+  script:
+    - php artisan dusk --filter testTask2
+    - php artisan test --filter testTask2
+  extends: .general
+
+Task3:
+  script:
+    - php artisan dusk --filter testTask3
+  extends: .general
+
+Task4:
+  script:
+    - php artisan dusk --filter testTask4
+    - php artisan test --filter testTask4
+  extends: .general
+
+Task5:
+  script:
+    - php artisan dusk --filter testTask5
+    - php artisan test --filter testTask5
+  extends: .general
+
+Task6:
+  script:
+    - php artisan dusk --filter testTask6
+  extends: .general
+
+Task7:
+  script:
+    - php artisan dusk --filter testTask7
+    - php artisan test --filter testTask7
+  extends: .general
+
+cache:
+  paths:
+    - vendor/
+    - node_modules/
+
+services:
+  - name: mysql:5.7
+    alias: mysql-test
+
+variables:
+  MYSQL_DATABASE: webtech
+  MYSQL_ROOT_PASSWORD: secret
+  DB_DATABASE: webtech
+  DB_USERNAME: root
+  DB_PASSWROD: secret
+  DB_HOST: mysql-test
