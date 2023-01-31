@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Faculty;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CourseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,11 +16,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', 'courses')->name('home');
 
-Route::get('courses', function() {
-    $faculties = Faculty::all();
-    return view('courses.index')->with('faculties', $faculties);
-});
+//
+Route::get('courses', [CourseController::class, 'index'])->name('index');
 
-Route::get('courses/{course}', function() {
-    return view('courses.show');
-})->name('courses.show');
+Route::get('courses/create', [CourseController::class, 'displayCreate'])->name('create');
+
+Route::post('courses', [CourseController::class, 'createCourse']);
+
+//
+Route::get('courses/{course}', [CourseController::class, 'showCourse'])->name('courses.show');
+
+Route::get('/courses/{course}/edit', [CourseController::class, 'displayUpdate']);
+
+Route::put('/courses/{course}', [CourseController::class, 'updateCourse']);
+
+Route::delete('/courses/{course}', [CourseController::class, 'deleteCourse']);
