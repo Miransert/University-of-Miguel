@@ -31,6 +31,16 @@
                             <a  href="{{ route('courses.show', 2) }}" class="card-link course-details">Details</a>
                         </div>
                     </div>
+                    @foreach ($courses as $course)
+                    <div class="card course">
+                        <div class="card-body">
+                            <h5 class="card-title">{{$course->name}}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{$course->faculty_id}}</h6>
+                            <p class="card-text">{{$course->description}}</p>
+                            <a href="{{ route('courses.show', $course->id) }}" class="card-link course-details">Details</a>
+                        </div>
+                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
