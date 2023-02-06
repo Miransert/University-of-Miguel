@@ -36,7 +36,7 @@ class CourseController extends Controller
             'name' => 'required',
             'code' => 'required',
             'ects' => 'required|numeric',
-            'faculty' => 'required|numeric',
+            'faculty' => 'exists:App\Models\Faculty,id',
             'description' => 'required'
         ]);
         $course->save();
@@ -71,6 +71,7 @@ class CourseController extends Controller
             'name' => 'required',
             'code' => 'required',
             'ects' => 'required|numeric',
+            'faculty' => 'exists:App\Models\Faculty,id',
             'description' => 'required'
         ]);
 

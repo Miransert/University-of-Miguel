@@ -14,10 +14,10 @@
             <div class="col-4">
                 <div class="card">
                     <div class="card-header">
-                        {{$faculties->name}} ({{$faculties->code}})
+                        {{$courses->faculty->name}} ({{$courses->faculty->code}})
                     </div>
                     <div class="card-body">
-                        <p class="card-text">{{$faculties->description}}</p>
+                        <p class="card-text">{{$courses->faculty->description}}</p>
                     </div>
                 </div>
                 <div class="mt-3 d-grid gap-3">
