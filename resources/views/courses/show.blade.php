@@ -1,6 +1,6 @@
 @extends('master')
 
-@section('title', 'DataMatisk Semantik')
+@section('title', $courses->name)
 
 @section('content')
 
